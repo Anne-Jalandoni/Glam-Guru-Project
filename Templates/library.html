@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+    <h1>Library</h1>
+
+    <h2>Upload Your Information</h2>
+    <form action="/library/upload" method="POST">
+        <label for="skin_color">Skin Color:</label>
+        <input type="text" id="skin_color" name="skin_color" required>
+        <br>
+
+        <label for="hair_color">Hair Color:</label>
+        <input type="text" id="hair_color" name="hair_color" required>
+        <br>
+
+        <label for="eye_color">Eye Color:</label>
+        <input type="text" id="eye_color" name="eye_color" required>
+        <br>
+
+        <h3>Products:</h3>
+        <input type="checkbox" id="product1" name="products" value="Product 1">
+        <label for="product1">Product 1</label>
+        <br>
+
+        <input type="checkbox" id="product2" name="products" value="Product 2">
+        <label for="product2">Product 2</label>
+        <br>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>View Library</h2>
+    <p>Below is the library of tones:</p>
+    <table>
+        <tr>
+            <th>Skin Color</th>
+            <th>Hair Color</th>
+            <th>Eye Color</th>
+            <th>Products</th>
+        </tr>
+        {% for tone in tones %}
+        <tr>
+            <td>{{ tone.skin_color }}</td>
+            <td>{{ tone.hair_color }}</td>
+            <td>{{ tone.eye_color }}</td>
+            <td>{{ tone.products }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

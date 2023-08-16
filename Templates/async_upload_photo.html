@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Profile Picture</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Upload Profile Picture</h1>
+        <form id="upload-form" action="/post-form-data-async" method="post" enctype="multipart/form-data">
+            <!-- Input field for uploading the profile picture -->
+            <input type="file" name="profile-pic">
+            <!-- Submit button to upload the picture -->
+            <input type="submit" value="Upload">
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.querySelector('#upload-form').addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            const formData = new FormData(evt.target);
+
+            fetch('/post-form-data-async', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(responseJson => {
+                console.log(responseJson);
+                const resultDiv = document.querySelector('#result');
+                resultDiv.innerHTML = `
+                    <p>Original Image:</p>
+                    <img src="${responseJson.original_url}" alt="Original Image" style="max-width: 400px;">
+                    <p>Skin Color Values:</p>
+                    <ul>
+                        <li>Mean: ${responseJson.skin_color_values.mean}</li>
+                        <li>Standard Deviation: ${responseJson.skin_color_values.std_dev}</li>
+                    </ul>
+                `;
+            });
+        });
+    </script>
+</body>
+
+</html>

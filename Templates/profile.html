@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Head content -->
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome, {{ user.fname }}!</h1>
+        </header>
+        <main>
+            <!-- Display user information -->
+            <p>User ID: {{ user.user_id }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>First Name: {{ user.fname }}</p>
+            <p>Last Name: {{ user.lname }}</p>
+
+            <!-- Image upload form -->
+            <form id="upload-form" method="POST" action="/profile-pic" enctype="multipart/form-data">
+                <input type="file" name="profile-pic" accept="image/*">
+                <input type="submit" value="Upload Photo">
+            </form>
+            <div id="result"></div>
+
+            <!-- Logout Button -->
+            <form method="POST" action="/logout">
+                <input type="submit" value="Logout">
+            </form>
+        </main>
+    </div>
+
+</body>
+
+<script>
+    document.querySelector('#upload-form').addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        const formData = new FormData(evt.target);
+
+        fetch('/post-form-data-async', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson);
+            const resultDiv = document.querySelector('#result');
+            resultDiv.innerHTML = `
+                <p>Original Image:</p>
+                <img src="${responseJson.original_url}" alt="Original Image" style="max-width: 400px;">
+                <p>Skin Color Values:</p>
+                <ul>
+                    <li>Mean: ${responseJson.skin_color_values.mean}</li>
+                    <li>Standard Deviation: ${responseJson.skin_color_values.std_dev}</li>
+                </ul>
+            `;
+        });
+    });
+</script>
+
+</html>

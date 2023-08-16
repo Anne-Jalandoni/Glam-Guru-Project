@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makeup Recommendation</title>
+</head>
+
+<body>
+    <h1>Recommended Makeup Products for Skin Tone: {{ user_skin_tone }}</h1>
+    <div id="recommended-products">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Get the user's skin tone from the URL query parameter
+            const userSkinTone = "{{user_skin_tone }}";
+
+            // Make an AJAX request to get recommended products
+            $.ajax({
+                url: `/recommend?skin_tone=${userSkinTone}`,
+                method: "GET",
+                success: function (data) {
+                    // Display recommended products on the page
+                    $("#recommended-products").html(data);
+                },
+                error: function () {
+                    console.log("Error fetching recommended products.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

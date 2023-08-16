@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <style>
+        /* Add your styling here */
+    </style>
+</head>
+
+<body>
+    <h1>Messages with {{ user.fname }} {{ user.lname }}</h1>
+    <div id="message-list">
+        {% for message in messages %}
+            <div class="message">
+                <p><strong>{{ message.sender.fname }}:</strong> {{ message.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const messageList = document.getElementById('message-list');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+
+        socket.on('connect', () => {
+            console.log('Connected to SocketIO');
+        });
+
+        socket.on('receive_message', (data) => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `<p><strong>${data.sender.fname}:</strong> ${data.content}</p>`;
+            messageList.appendChild(messageDiv);
+        });
+
+        messageForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const content = messageInput.value;
+            const sender_id = {{ user.user_id }};
+            const receiver_id = {{ user.user_id }}; // Assuming this is the current user's ID
+            socket.emit('send_message', { content, sender_id, receiver_id });
+            messageInput.value = '';
+        });
+    </script>
+</body>
+
+</html>

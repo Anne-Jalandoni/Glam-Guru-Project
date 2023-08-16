@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makeup Recommendation App</title>
+    <style>
+        /* CSS STYLE CHANGE LATER */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: black;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .app-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="app-title">GLAM GURU</h1>
+        <div class="btn-container">
+            <a href="/register" class="btn">Sign Up</a>
+            <a href="/login" class="btn">Log In</a>
+            <a href="/quiz" class="btn">Take the Quiz</a>
+            <a href="/library/upload" class="btn">Upload into Library</a>
+            <a href="/search" class="btn">Search Products</a>
+        </div>
+    </div>
+</body>
+
+</html>

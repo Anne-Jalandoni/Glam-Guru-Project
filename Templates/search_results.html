@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    <ul>
+        <!-- Display the list of products that match the search -->
+        {% for product in products %}
+            <li>{{ product.product_name }} - {{ product.brand }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
