@@ -1,8 +1,12 @@
 from server import app
 from model import connect_to_db, db, User, Color, Product, Quiz, ProductColorAssociation
+import os
 
 def seed_database():
     """Seed the database with mock data."""
+
+    os.system('dropdb makeups')
+    os.system('createdb makeups')
 
     # Connect to the database
     connect_to_db(app)
@@ -21,9 +25,9 @@ def seed_database():
     db.session.commit()
 
     # Create mock colors
-    color1 = Color(skin_color="fair", hair_color="black", eye_color="brown", hexcode_id="#FFFFFF", user_id=user1.user_id)
-    color2 = Color(skin_color="porcelain", hair_color="blonde", eye_color="blue", hexcode_id="#F0F0F0", user_id=user1.user_id)
-    color3 = Color(skin_color="golden", hair_color="brown", eye_color="green", hexcode_id="#FFD700", user_id=user2.user_id)
+    color1 = Color(skin_color="#FCE5D8", hair_color="#FFB347", eye_color="#006400", user_id=user1.user_id)
+    color2 = Color(skin_color="#240B03", hair_color="#FFF5E1", eye_color="#0D98BA", user_id=user1.user_id)
+    color3 = Color(skin_color="#512913", hair_color="#FFDDAF", eye_color="#B2BEB5", user_id=user2.user_id)
 
     # Add colors to the session
     db.session.add_all([color1, color2, color3])

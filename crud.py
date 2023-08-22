@@ -51,7 +51,13 @@ def authenticate_user(email, password):
 
 def create_color(skin_color, hair_color, eye_color):
     """Create and return a new color."""
-    color = Color(skin_color=skin_color, hair_color=hair_color, eye_color=eye_color, hexcode_id=hexcode_id)
+    color = Color(skin_color=skin_color, hair_color=hair_color, eye_color=eye_color)
+    
+
+    db.session.add(color)
+
+    db.session.commit()
+
     return color
 
 def get_colors():
@@ -62,11 +68,16 @@ def get_color_by_id(tone_id):
     """Return a color by primary key."""
     return Color.query.get(tone_id)
 
-def create_product(price, shade, product_name, category, description, brand):
+def create_product(product_name, price, shade, category, description, brand):
     """Create and return a new product."""
 
-    product = Product(price=price, shade=shade, product_name=product_name, category=category,
+    product = Product(product_name=product_name, shade=shade, price=price, category=category,
                       description=description, brand=brand)
+    
+    db.session.add(product)
+
+    db.session.commit()
+
     return product
 
 def get_products():

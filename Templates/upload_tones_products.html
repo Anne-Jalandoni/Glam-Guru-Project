@@ -1,38 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload Tones and Products</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>Upload Your Tones and Favorite Products</h1>
     <form action="/library/upload" method="post" enctype="multipart/form-data">
-        <label for="skin_color">Skin Color:</label>
-        <select id="skin_color" name="skin_color" required>
-            <option value="fair">Fair</option>
-            <option value="porcelain">Porcelain</option>
-            <option value="ivory">Ivory</option>
-            <option value="sand">Sand</option>
-            <option value="beige">Beige</option>
-            <option value="golden">Golden</option>
-            <option value="honey">Honey</option>
-            <option value="bronze">Bronze</option>
-            <option value="almond">Almond</option>
-            <option value="chestnut">Chestnut</option>
-            <option value="deep">Deep</option>
-            <option value="ebony">Ebony</option>
+        <label for="skin_color" style="font-size: 16px;">Skin Color:</label>
+        <select id="skin_color" name="skin_color" required style="font-size: 16px;">
+            <option value="#FFF4E1">#FFF4E1:Fair</option>
+            <option value="#FCE5D8">#FCE5D8:Porcelain</option>
+            <option value="#F8E0C8">#F8E0C8:Ivory</option>
+            <option value="#F5D0A9">F5D0A9:Sand</option>
+            <option value="#ECCBAE">#ECCBAE:Beige</option>
+            <option value="#D9B99B">#D9B99B:Golden</option>
+            <option value="#C7A17A">#C7A17A:Honey</option>
+            <option value="#AF8D5F">#AF8D5F:Bronze</option>
+            <option value="#8D6E4C">#8D6E4C:Almond</option>
+            <option value="#6C5434">#6C5434:Chestnut</option>
+            <option value="#4E3522">#4E3522:Deep</option>
+            <option value="#3C2415">#3C2415:Ebony</option>
         </select><br>
 
-        <label for="hair_color">Hair Color:</label>
-        <input type="text" id="hair_color" name="hair_color"><br>
+        <label for="hair_color" style="font-size: 16px;">Hair Color:</label>
+        <select id="hair_color" name="hair_color" style="font-size: 16px;">
+            <option value="#000000">#000000:Black</option>
+            <option value="#1A1A1A">#1A1A1A:Dark Brown</option>
+            <option value="#4F2B0C">#4F2B0C:Chocolate Brown</option>
+            <option value="#6B4421">#6B4421:Auburn</option>
+            <option value="#7B4B26">#7B4B26:Chestnut Brown</option>
+            <option value="#A52A2A">#A52A2A:Red</option>
+            <option value="#954535">#954535:Blonde</option>
+            <option value="#C04000">#C04000:Platinum Blonde</option>
+        </select><br>
 
-        <label for="eye_color">Eye Color:</label>
-        <select id="eye_color" name="eye_color">
-            <option value="black">Black</option>
-            <option value="brown">Brown</option>
-            <option value="green">Green</option>
-            <option value="gray">Gray</option>
-            <option value="blue">Blue</option>
-            <option value="other">Other</option>
+        <label for="eye_color" style="font-size: 16px;">Eye Color:</label>
+        <select id="eye_color" name="eye_color" style="font-size: 16px;">
+            <option value="#000000">#000000:Black</option>
+            <option value="#1A1A1A">#1A1A1A:Dark Brown</option>
+            <option value="#4F2B0C">#4F2B0C:Chocolate Brown</option>
+            <option value="#0D98BA">#0D98BA:Blue</option>
+            <option value="#006400">#006400:Green</option>
+            <option value="#B2BEB5">##B2BEB5:Gray</option>
         </select><br>
 
         <h2>Favorite Product Details</h2>
@@ -55,22 +61,11 @@
         <label for="brand">Brand:</label>
         <input type="text" id="brand" name="brand" required><br>
 
-        <label for="sustainability">Sustainability:</label>
-        <input type="text" id="sustainability" name="sustainability"><br>
-
-        <label for="free_of_animal_testing">Free of Animal Testing:</label>
-        <input type="text" id="free_of_animal_testing" name="free_of_animal_testing"><br>
-
-        <label for="eco_friendly">Eco-friendly:</label>
-        <input type="text" id="eco_friendly" name="eco_friendly"><br>
-
-        <label for="vegan">Vegan:</label>
-        <input type="text" id="vegan" name="vegan"><br>
 
         <label for="product_image">Product Image:</label>
         <input type="file" id="product_image" name="product_image" accept="image/*"><br>
 
         <input type="submit" value="Upload">
     </form>
-</body>
-</html>
+
+{% endblock %}

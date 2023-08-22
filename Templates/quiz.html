@@ -1,67 +1,113 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quiz</title>
-</head>
-<body>
-    <h1>Quiz</h1>
+{% extends 'base.html' %}
 
-    <form method="POST" action="/quiz">
-        <h3>Question 1: What is your skin color?</h3>
-        <input type="radio" name="quiz_question_1" value="fair" id="fair">
-        <label for="fair">Fair</label><br>
-        <input type="radio" name="quiz_question_1" value="porcelain" id="porcelain">
-        <label for="porcelain">Porcelain</label><br>
-        <input type="radio" name="quiz_question_1" value="ivory" id="ivory">
-        <label for="ivory">Ivory</label><br>
-        <input type="radio" name="quiz_question_1" value="sand" id="sand">
-        <label for="sand">Sand</label><br>
-        <input type="radio" name="quiz_question_1" value="beige" id="beige">
-        <label for="beige">Beige</label><br>
-        <input type="radio" name="quiz_question_1" value="golden" id="golden">
-        <label for="golden">Golden</label><br>
-        <input type="radio" name="quiz_question_1" value="honey" id="honey">
-        <label for="honey">Honey</label><br>
-        <input type="radio" name="quiz_question_1" value="bronze" id="bronze">
-        <label for="bronze">Bronze</label><br>
-        <input type="radio" name="quiz_question_1" value="almond" id="almond">
-        <label for="almond">Almond</label><br>
-        <input type="radio" name="quiz_question_1" value="chestnut" id="chestnut">
-        <label for="chestnut">Chestnut</label><br>
-        <input type="radio" name="quiz_question_1" value="deep" id="deep">
-        <label for="deep">Deep</label><br>
-        <input type="radio" name="quiz_question_1" value="ebony" id="ebony">
-        <label for="ebony">Ebony</label><br>
+{% block content %}
+    <div class="quiz-container">
+        <h1>Quiz</h1>
 
-        <h3>Question 2: What is your eye color?</h3>
-        <input type="radio" name="quiz_question_2" value="black" id="black">
-        <label for="black">Black</label><br>
-        <input type="radio" name="quiz_question_2" value="brown" id="brown">
-        <label for="brown">Brown</label><br>
-        <input type="radio" name="quiz_question_2" value="green" id="green">
-        <label for="green">Green</label><br>
-        <input type="radio" name="quiz_question_2" value="gray" id="gray">
-        <label for="gray">Gray</label><br>
-        <input type="radio" name="quiz_question_2" value="blue" id="blue">
-        <label for="blue">Blue</label><br>
-        <input type="radio" name="quiz_question_2" value="other" id="other">
-        <label for="other">Other</label><br>
+        <form method="POST" action="/quiz" id="quiz-form">
+            <div class="question">
+                <h3>Question 1: What is your skin color?</h3>
+                <div class="answer-options">
+                    {% for tone in skintone_hexcode %}
+                        <label>
+                            <input type="checkbox" class="quiz-checkbox" name="quiz_question_1" value="{{ tone }}">
+                            <span class="color-preview" style="background-color: {{ tone }};"></span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
 
-        <h3>Question 3: What is your hair color?</h3>
-        <input type="radio" name="quiz_question_3" value="black" id="black_hair">
-        <label for="black_hair">Black</label><br>
-        <input type="radio" name="quiz_question_3" value="brown" id="brown_hair">
-        <label for="brown_hair">Brown</label><br>
-        <input type="radio" name="quiz_question_3" value="blonde" id="blonde">
-        <label for="blonde">Blonde</label><br>
-        <input type="radio" name="quiz_question_3" value="red" id="red">
-        <label for="red">Red</label><br>
-        <input type="radio" name="quiz_question_3" value="gray" id="gray_hair">
-        <label for="gray_hair">Gray</label><br>
-        <input type="radio" name="quiz_question_3" value="other" id="other_hair">
-        <label for="other_hair">Other</label><br>
+            <br>
+            <br>
+            <br>
 
-        <input type="submit" value="Submit Quiz">
-    </form>
-</body>
-</html>
+            <div class="question">
+                <h3>Question 2: What is your eye color?</h3>
+                <div class="answer-options">
+                    {% for tone in eye_color_hexcodes %}
+                        <label>
+                            <input type="checkbox" class="quiz-checkbox" name="quiz_question_2" value="{{ tone }}">
+                            <span class="color-preview" style="background-color: {{ tone }};"></span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <div class="question">
+                <h3>Question 3: What is your hair color?</h3>
+                <div class="answer-options">
+                    {% for tone in hair_color_hexcodes %}
+                        <label>
+                            <input type="checkbox" class="quiz-checkbox" name="quiz_question_3" value="{{ tone }}">
+                            <span class="color-preview" style="background-color: {{ tone }};"></span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <input type="submit" value="Submit Quiz">
+        </form>
+    </div>
+
+    <style>
+        .quiz-container {
+            background-color: white;
+            color: black;
+            padding: 100px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .answer-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .quiz-checkbox {
+            margin-right: 5px;
+        }
+
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    </style>
+
+<script>
+    const quizForm = document.getElementById('quiz-form');
+    const skinColorRadios = document.querySelectorAll('input[name="quiz_question_1"]');
+    const eyeColorRadios = document.querySelectorAll('input[name="quiz_question_2"]');
+    const hairColorRadios = document.querySelectorAll('input[name="quiz_question_3"]');
+
+    quizForm.addEventListener('submit', function (event) {
+        if (!isOneOptionSelected(skinColorRadios) || !isOneOptionSelected(eyeColorRadios) || !isOneOptionSelected(hairColorRadios)) {
+            event.preventDefault();
+            alert('Please select one option from each question.');
+        }
+    });
+
+    function isOneOptionSelected(radios) {
+        for (const radio of radios) {
+            if (radio.checked) {
+                return true;
+            }
+        }
+        return false;
+    }
+</script>
+
+{% endblock %}

@@ -11,34 +11,6 @@ import cv2
 import numpy as np
 import requests
 
-
-
-#ADD PICTURES AND DATA TO LIBRARY
-#ADD MAKE UP RECOMMENDATION TO USER PROFILE
-#ADD SEARCH/FILTER BUTTON TO HOMEPAGE
-#FIX CSS AND STYLING/ DO BOOTSTRAP TEMPLATE
-#DO NOT FORGET ABOUT BASE INHERITANCE(REQUIREMENT!!!) - 1-2 Jinja templates that use template inheritance
-#DO NOT FORGET TO STORE SECRETS IN GITIGNORE!!!
-#One feature that uses JavaScript to manipulate the DOM
-#One AJAX request (done)
-#IMPLEMENT DELETE
-#insert swatches when describing skin tone ("paint chips")
-
-# Mock dataset of products
-mock_products = [
-    {
-        "name": "Foundation A",
-        "skin_tones": ["Light", "Medium"],
-    },
-    {
-        "name": "Lipstick B",
-        "skin_tones": ["All"],
-        # Other product information...
-    }
-]
-
-
-
 app = Flask(__name__)
 #place this inside secret.sh
 app.secret_key = "SASUKELOVESYOU"  # Change this to a long, random string for better security
@@ -49,6 +21,26 @@ CLOUDINARY_KEY = os.environ['CLOUDINARY_KEY']
 CLOUDINARY_SECRET = os.environ['CLOUDINARY_SECRET']
 CLOUD_NAME= "ddslqlvhf" 
 
+skintone_hexcode = [
+    "#FFF4E1", "#FCE5D8", "#F8E0C8", "#F5D0A9", "#ECCBAE",
+    "#D9B99B", "#C7A17A", "#AF8D5F", "#8D6E4C", "#6C5434",
+    "#4E3522", "#3C2415", "#26150E", "#160C07", "#0B0704",
+    "#060402", "#3E0E09", "#240B03", "#120602", "#080402",
+    "#FDF3E8", "#F9DBCC", "#F6C9AC", "#E3B18B", "#CCA572",
+    "#B98860", "#9F6D46", "#875330", "#6B3D1D", "#512913"
+]
+
+hair_color_hexcodes = [
+    "#000000", "#1A1A1A", "#4F2B0C", "#6B4421", "#7B4B26",
+    "#A52A2A", "#954535", "#C04000", "#FF0000", "#FFB347",
+    "#FFFF00", "#E5E4E2", "#B2BEB5", "#F0DB7D", "#B87333",
+    "#996515", "#996515", "#FFDDAF", "#E5B887", "#FFF5E1"
+]
+
+eye_color_hexcodes = [
+    "#000000", "#0D98BA", "#006400", "#8B4513", "#B2BEB5",
+     "#996515", "#A52A2A"
+]
 
 
 # The homepage route
@@ -152,7 +144,7 @@ def profile_pic():
     # Perform skin color detection and get skin color values
     skin_color_values = detect_skin_color(original_img_url)
 
-    print(user_id, "++++++++++++++")
+    #print(user_id, "++++++++++++++")
 
     add_profile_pic(user_id,original_img_url)
 
@@ -206,8 +198,8 @@ def load_image_from_url(image_url):
     return image_cv
 
 def perform_skin_detection(image):
-    # Implement your skin tone detection algorithm using OpenCV
-    # Return the image with skin tones highlighted or detected
+    """Implement your skin tone detection algorithm using OpenCV
+    Return the image with skin tones highlighted or detected"""
     
     # Example: Convert the image to HSV color space and apply a skin tone range
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -283,9 +275,8 @@ def quiz():
         # Redirect the user to the registration page after completing the quiz
         return redirect("/register")
 
-    return render_template("quiz.html")
+    return render_template("quiz.html",skintone_hexcode=skintone_hexcode,hair_color_hexcodes=hair_color_hexcodes,eye_color_hexcodes=eye_color_hexcodes)
 
-# Route for user to upload their tones and favorite products
 @app.route("/library/upload", methods=['GET', 'POST'])
 def upload_tones_and_products():
     if request.method == 'POST':
@@ -298,24 +289,32 @@ def upload_tones_and_products():
         category = request.form['category']
         description = request.form['description']
         brand = request.form['brand']
-        sustainability = request.form['sustainability']
-        free_of_animal_testing = request.form['free_of_animal_testing']
-        eco_friendly = request.form['eco_friendly']
-        vegan = request.form['vegan']
 
-        color = create_color(skin_color, hair_color, eye_color)
+        # Create color instances for each hex code
+        skin_color_color = Color(skin_color=skin_color)
+        hair_color_color = Color(hair_color=hair_color)
+        eye_color_color = Color(eye_color=eye_color)
 
+        # Create product and associate color instances with it
+        product = create_product(product_name, price, shade, category, description, brand)
+        product.colors.extend([skin_color_color, hair_color_color, eye_color_color])
 
-        # Create product and associate color with it
-        product = create_product(product_name, price, shade, category, description, brand, sustainability, free_of_animal_testing, eco_friendly, vegan, color)
+        db.session.add(product)
+        db.session.commit()
 
         return redirect("/library")
 
-    return render_template("upload_tones_products.html")
+    return render_template("upload_tones_products.html", skintone_hexcode=skintone_hexcode, hair_color_hexcodes=hair_color_hexcodes, eye_color_hexcodes=eye_color_hexcodes)
 
 
+#The library route
+@app.route("/library")
+def library():
+    products = Product.query.all()  # Retrieve all products
 
-#The actual search route directed after the search filter route
+    return render_template("library.html", products=products)
+
+#The search route
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """Search route: Allows users to filter products based on color."""
@@ -327,11 +326,11 @@ def search():
         hair_color = request.form["hair_color"]
 
         # Perform the search using the search_products_by_color function
-        products = search_products_by_color(skin_color, eye_color, hair_color)
+        products = search_products_by_color(skin_color, eye_color,hair_color)
 
         return render_template("search_results.html", products=products)
 
-    return render_template("search.html")
+    return render_template("search.html",skintone_hexcode=skintone_hexcode,hair_color_hexcodes=hair_color_hexcodes,eye_color_hexcodes=eye_color_hexcodes)
 
 @app.route("/recommend", methods=["GET"])
 def recommend_products():

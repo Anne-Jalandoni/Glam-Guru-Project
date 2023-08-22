@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <!-- Head content -->
-</head>
+{% block content %}
 
-<body>
     <div class="container">
         <header>
             <h1>Welcome, {{ user.fname }}!</h1>
@@ -31,7 +27,7 @@
         </main>
     </div>
 
-</body>
+
 
 <script>
     document.querySelector('#upload-form').addEventListener('submit', (evt) => {
@@ -59,4 +55,4 @@
     });
 </script>
 
-</html>
+{% endblock %}

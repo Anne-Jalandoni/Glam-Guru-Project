@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Registration</title>
-</head>
-<body>
-    <h1>User Registration</h1>
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
-    <form method="POST" action="/register">
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <br>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <br>
-        <label>First Name:</label>
-        <input type="text" name="fname" required>
-        <br>
-        <label>Last Name:</label>
-        <input type="text" name="lname" required>
-        <br>
-        <input type="submit" value="Register">
-        <br>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="form-title">User Registration</h1>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form class="registration-form" method="POST" action="/register">
+            <label class="form-label" for="email">Email:</label>
+            <input class="form-input" type="email" name="email" required>
+
+            <label class="form-label" for="password">Password:</label>
+            <input class="form-input" type="password" name="password" required>
+
+            <label class="form-label" for="fname">First Name:</label>
+            <input class="form-input" type="text" name="fname" required>
+
+            <label class="form-label" for="lname">Last Name:</label>
+            <input class="form-input" type="text" name="lname" required>
+
+            <input class="btn-submit" type="submit" value="Register">
+        </form>
+    </div>
+{% endblock %}

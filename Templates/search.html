@@ -1,67 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Search</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="login-container">  
     <h1>Search</h1>
 
     <form method="POST" action="/search">
-        <h3>Question 1: What is your skin color?</h3>
-        <input type="radio" name="skin_color" value="fair" id="fair">
-        <label for="fair">Fair</label><br>
-        <input type="radio" name="skin_color" value="porcelain" id="porcelain">
-        <label for="porcelain">Porcelain</label><br>
-        <input type="radio" name="skin_color" value="ivory" id="ivory">
-        <label for="ivory">Ivory</label><br>
-        <input type="radio" name="skin_color" value="sand" id="sand">
-        <label for="sand">Sand</label><br>
-        <input type="radio" name="skin_color" value="beige" id="beige">
-        <label for="beige">Beige</label><br>
-        <input type="radio" name="skin_color" value="golden" id="golden">
-        <label for="golden">Golden</label><br>
-        <input type="radio" name="skin_color" value="honey" id="honey">
-        <label for="honey">Honey</label><br>
-        <input type="radio" name="skin_color" value="bronze" id="bronze">
-        <label for="bronze">Bronze</label><br>
-        <input type="radio" name="skin_color" value="almond" id="almond">
-        <label for="almond">Almond</label><br>
-        <input type="radio" name="skin_color" value="chestnut" id="chestnut">
-        <label for="chestnut">Chestnut</label><br>
-        <input type="radio" name="skin_color" value="deep" id="deep">
-        <label for="deep">Deep</label><br>
-        <input type="radio" name="skin_color" value="ebony" id="ebony">
-        <label for="ebony">Ebony</label><br>
+        <table>
+            <tr>
+                <th>Skin Color</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for tone in skintone_hexcode %}
+                    <label>
+                        <input type="checkbox" name="skin_color" value="{{ tone }}"> 
+                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label><br>
+                    {% endfor %}
+                </td>
+            </tr>
 
-        <h3>Question 2: What is your eye color?</h3>
-        <input type="radio" name="eye_color" value="black" id="black">
-        <label for="black">Black</label><br>
-        <input type="radio" name="eye_color" value="brown" id="brown">
-        <label for="brown">Brown</label><br>
-        <input type="radio" name="eye_color" value="green" id="green">
-        <label for="green">Green</label><br>
-        <input type="radio" name="eye_color" value="gray" id="gray">
-        <label for="gray">Gray</label><br>
-        <input type="radio" name="eye_color" value="blue" id="blue">
-        <label for="blue">Blue</label><br>
-        <input type="radio" name="eye_color" value="other" id="other">
-        <label for="other">Other</label><br>
+            <tr>
+                <th>Hair Color</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for tone in hair_color_hexcodes %}
+                    <label>
+                        <input type="checkbox" name="hair_color" value="{{ tone }}"> 
+                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label><br>
+                    {% endfor %}
+                </td>
+            </tr>
 
-        <h3>Question 3: What is your hair color?</h3>
-        <input type="radio" name="hair_color" value="black" id="black_hair">
-        <label for="black_hair">Black</label><br>
-        <input type="radio" name="hair_color" value="brown" id="brown_hair">
-        <label for="brown_hair">Brown</label><br>
-        <input type="radio" name="hair_color" value="blonde" id="blonde">
-        <label for="blonde">Blonde</label><br>
-        <input type="radio" name="hair_color" value="red" id="red">
-        <label for="red">Red</label><br>
-        <input type="radio" name="hair_color" value="gray" id="gray_hair">
-        <label for="gray_hair">Gray</label><br>
-        <input type="radio" name="hair_color" value="other" id="other_hair">
-        <label for="other_hair">Other</label><br>
+            <tr>
+                <th>Eye Color</th>
+            </tr>
+            <tr>
+                <td>
+                    {% for tone in eye_color_hexcodes %}
+                    <label>
+                        <input type="checkbox" name="eye_color" value="{{ tone }}"> 
+                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label><br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </table>
 
         <input type="submit" value="Search">
     </form>
-</body>
-</html>
+</div>  
+
+{% endblock %}
