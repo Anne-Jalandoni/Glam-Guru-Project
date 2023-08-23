@@ -2,55 +2,52 @@
 
 {% block content %}
 
-<div class="login-container">  
+<div class="quiz-container">  
     <h1>Search</h1>
 
     <form method="POST" action="/search">
-        <table>
-            <tr>
-                <th>Skin Color</th>
-            </tr>
-            <tr>
-                <td>
+   
+        <div class="question">
+                <h2>Skin Tone</h2>
+                    <div class="answer-options"></div>
                     {% for tone in skintone_hexcode %}
                     <label>
                         <input type="checkbox" name="skin_color" value="{{ tone }}"> 
-                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
-                    </label><br>
+                        <span class="color-preview" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label>
                     {% endfor %}
-                </td>
-            </tr>
+                    </div>
+        </div>
 
-            <tr>
-                <th>Hair Color</th>
-            </tr>
-            <tr>
-                <td>
+
+        <div class="question">
+                    <h2>Hair Color</h2>
+                    <div class="answer-options"></div>
                     {% for tone in hair_color_hexcodes %}
                     <label>
                         <input type="checkbox" name="hair_color" value="{{ tone }}"> 
-                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
-                    </label><br>
+                        <span class="color-preview" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label>
                     {% endfor %}
-                </td>
-            </tr>
+                    </div>
+        </div>
+         
 
-            <tr>
-                <th>Eye Color</th>
-            </tr>
-            <tr>
-                <td>
+        <div class="question">
+                    <h2>Eye Color</h2>
+                    <div class="answer-options">
                     {% for tone in eye_color_hexcodes %}
                     <label>
                         <input type="checkbox" name="eye_color" value="{{ tone }}"> 
-                        <span class="color-swatch" style="background-color: {{ tone }};"></span> {{ tone }}
-                    </label><br>
+                        <span class="color-preview" style="background-color: {{ tone }};"></span> {{ tone }}
+                    </label>
                     {% endfor %}
-                </td>
-            </tr>
-        </table>
+                    </div>
+        </div>
+        
 
         <input type="submit" value="Search">
+    </div>
     </form>
 </div>  
 
