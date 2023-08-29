@@ -26,9 +26,6 @@ class User(db.Model):
     # One-to-many relationship with Rating (One user can have multiple ratings)
     ratings = db.relationship('Rating', back_populates='user')
 
-    """# One-to-many relationship with Message (One user can send/receive multiple messages)
-    messages_sent = db.relationship('Message', back_populates='sender', foreign_keys='Message.sender_id')
-    messages_received = db.relationship('Message', back_populates='receiver', foreign_keys='Message.receiver_id')"""
 
     def __init__(self, email, password, fname, lname):
         self.email = email

@@ -3,12 +3,12 @@
 {% block content %}
 
 <div class="quiz-container">  
-    <h1>Search</h1>
+    <h1>Search</h1><br><br><br>
 
     <form method="POST" action="/search">
    
         <div class="question">
-                <h2>Skin Tone</h2>
+                <h2>Skin Tone</h2> <br> 
                     <div class="answer-options"></div>
                     {% for tone in skintone_hexcode %}
                     <label>
@@ -19,9 +19,11 @@
                     </div>
         </div>
 
+        <br> <br>
+
 
         <div class="question">
-                    <h2>Hair Color</h2>
+                    <h2>Hair Color</h2> <br> 
                     <div class="answer-options"></div>
                     {% for tone in hair_color_hexcodes %}
                     <label>
@@ -32,9 +34,10 @@
                     </div>
         </div>
          
+        <br> <br>
 
         <div class="question">
-                    <h2>Eye Color</h2>
+                    <h2>Eye Color</h2> <br> 
                     <div class="answer-options">
                     {% for tone in eye_color_hexcodes %}
                     <label>

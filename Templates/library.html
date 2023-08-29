@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
 <div class="library">
@@ -24,6 +25,7 @@
     {% for product in products %}
     <tr>
         <td>{{ product.product_name }}</td>
+
         <td>{{ product.brand }}</td>
         <td>{{ product.shade}}</td>
         <td>{{ product.category}}</td>

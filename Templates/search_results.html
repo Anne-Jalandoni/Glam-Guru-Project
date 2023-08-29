@@ -5,12 +5,18 @@
 
     <ul>
         {% for product in products %}
+        <br>
             <li>
                 Product: {{ product.product_name }}
+                <br>
                 Brand: {{ product.brand }}
+                <br>
                 Price: {{ product.price }}
+                <br>
                 Shade: {{ product.shade }}
+                <br>
                 Category: {{ product.category }}
+                <br>
                 Description: {{ product.description }}
             </li>
         {% endfor %}

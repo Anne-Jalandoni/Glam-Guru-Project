@@ -1,7 +1,7 @@
 from model import db, User, Color, Product, Rating,Quiz,ProductColorAssociation
 
 def create_user(email, password, fname, lname, quiz_question_1=None, quiz_question_2=None, quiz_question_3=None):
-    """Create and return a new user."""
+    """Create and return a new user"""
 
     user = User(email=email, password=password, fname=fname, lname=lname)
 
@@ -20,8 +20,6 @@ def add_profile_pic(user_id, profile_pic_url):
 
     user = User.query.get(user_id)
     user.profile_pic = profile_pic_url
-
-    print("+++++++")
 
     db.session.add(user)
 

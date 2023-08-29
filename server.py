@@ -12,8 +12,6 @@ import numpy as np
 import requests
 
 app = Flask(__name__)
-#place this inside secret.sh
-app.secret_key = "SASUKELOVESYOU"  # Change this to a long, random string for better security
 #socketio = SocketIO(app)
 
 
@@ -42,8 +40,6 @@ eye_color_hexcodes = [
      "#996515", "#A52A2A"
 ]
 
-
-# The homepage route
 @app.route("/")
 def index():
     """Homepage route."""
@@ -73,7 +69,6 @@ def register():
 
     return render_template("register.html")
 
-#The login route
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """User login route."""
@@ -98,7 +93,6 @@ def login():
 
     return render_template("login.html")
 
-#The logout route
 @app.route("/logout")
 def logout():
     """User logout route."""
@@ -148,7 +142,6 @@ def profile_pic():
 
     add_profile_pic(user_id,original_img_url)
 
-    
     return jsonify({"original_url": original_img_url, "skin_color_values": skin_color_values})
 
 
@@ -198,7 +191,7 @@ def load_image_from_url(image_url):
     return image_cv
 
 def perform_skin_detection(image):
-    """Implement your skin tone detection algorithm using OpenCV
+    """Implement skin tone detection algorithm using OpenCV
     Return the image with skin tones highlighted or detected"""
     
     # Example: Convert the image to HSV color space and apply a skin tone range
@@ -219,7 +212,6 @@ def get_skin_color_values(skin_detected_image):
     std_val = np.std(gray_image)
     
     return {"mean": mean_val.item(), "std_dev": std_val.item()}
-
 
 
 # Route to show the form for uploading a profile picture
@@ -255,8 +247,6 @@ def upload_profile_pic():
 
 """
 
-
-#The quiz route
 @app.route("/quiz", methods=["GET", "POST"])
 def quiz():
     """Quiz route: Allows users to answer quiz questions and store their answers."""
@@ -291,13 +281,12 @@ def upload_tones_and_products():
         brand = request.form['brand']
 
         # Create color instances for each hex code
-        skin_color_color = Color(skin_color=skin_color)
-        hair_color_color = Color(hair_color=hair_color)
-        eye_color_color = Color(eye_color=eye_color)
+        skin_color_color = Color(skin_color=skin_color, hair_color=hair_color,eye_color=eye_color)
+
 
         # Create product and associate color instances with it
         product = create_product(product_name, price, shade, category, description, brand)
-        product.colors.extend([skin_color_color, hair_color_color, eye_color_color])
+        product.colors.append(skin_color_color)
 
         db.session.add(product)
         db.session.commit()
@@ -306,8 +295,6 @@ def upload_tones_and_products():
 
     return render_template("upload_tones_products.html", skintone_hexcode=skintone_hexcode, hair_color_hexcodes=hair_color_hexcodes, eye_color_hexcodes=eye_color_hexcodes)
 
-
-#The library route
 @app.route("/library")
 def library():
     products = Product.query.all()  # Retrieve all products

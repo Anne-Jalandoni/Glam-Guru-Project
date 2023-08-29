@@ -1,6 +1,19 @@
+<style>
+    body {
+        background-image: url("{{ url_for('static', filename='homepage.jpg') }}");
+        background-size: 2000px;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="login-container">
     <h1>Upload Your Tones and Favorite Products</h1>
     <form action="/library/upload" method="post" enctype="multipart/form-data">
         <label for="skin_color" style="font-size: 16px;">Skin Color:</label>
@@ -67,5 +80,7 @@
 
         <input type="submit" value="Upload">
     </form>
+
+</div>
 
 {% endblock %}
